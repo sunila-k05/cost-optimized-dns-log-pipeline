@@ -1,0 +1,23 @@
+*** Rationale
+To handle a 20x traffic spike 100k logs per sec while staying well under the 800 dollars per month budget, we must eliminate expensive always on managed services like AWS Kinesis.
+This design uses Vector as a sidecar to capture DNS logs  at the source.
+By implementing a large disk backed buffer on the DNS hosts, we can absorb the 10 minute, 100,000 logs per sec spike locally without data loss or lagging.
+The data is then streamed directly to AWS S3 in compressed Parquet batches.
+This replaces high cost RAM based buffering with nearly free object storage, ensuring zero data loss at a fraction of the cost.
+
+*** Prompt
+Act as a DevOps Engineer. Your task is to configure a log collection system using Vector that handles a 5,000 to 100,000 logs per sec spike without data loss.
+
+Collection:
+Set up Vector to run on the DNS hosts to collect DNS requests, resolutions, and metadata.
+Enable a disk buffer of 100GB.
+This is critical: during a spike, Vector must save logs to the local hard drive instead of dropping them.
+
+Storage:
+Send the logs directly to an AWS S3 bucket.
+Use the Parquet format and compress the data using ZSTD to minimize storage costs.
+Batching: Wait until you have 10MB of logs or 30 seconds have passed before uploading to S3 to reduce request costs.
+
+Safety:
+Ensure at least once delivery so no logs are lost.
+If the S3 upload fails, Vector should retry automatically using the disk buffer to ensure zero data loss.

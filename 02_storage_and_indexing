@@ -1,0 +1,12 @@
+*** Rationale
+Processing billions of DNS logs requires a high compression database to stay under the 800 dollars budget.
+I am instructing the AI to use Click House because it can compress data by up to 90 percentage, significantly reducing costs compared to managed enterprise services.
+Using Asynchronous Inserts allows the system to handle the 100k logs per sec burst without crashing the CPU.
+
+*** Prompt
+Act as a DevOps Engineer. Design the storage layer for DNS logs using Click House.
+
+Schema: Create a table with fields for timestamp, source per destination IPs, and DNS metadata.
+Efficiency: Use the Merge Tree engine and apply ZSTD compression to minimize disk costs.
+Burst Handling: Configure async insert equal to 1 so Click House can ingest the 100,000 logs per sec spike without overwhelming the system.
+Data Lifecycle: Automatically move data older than 7 days to S3 (Cold Storage) to keep the monthly storage bill under 300 dollars.

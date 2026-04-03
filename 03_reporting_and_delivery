@@ -1,0 +1,13 @@
+*** Rationale
+The system must generate daily reports in PDF, HTML, and JSON formats.
+To ensure these remain accessible for years without expiring, we upload them to S3 and generate permanent links.
+This avoids the cost of maintaining a dedicated web server or expensive reporting tools while satisfying the delivery requirements.
+
+*** Prompt
+Act as a DevOps Engineer. Build a reporting and delivery system.
+
+Task: Every 24 hours, query Click House to calculate: the highest number of DNS resolutions, total resolution counts, and resolution origins.
+Formats: Generate the report in .pdf, .html, and .json.
+Delivery: Email these reports to a set of users.
+Persistence: Upload the reports to an S3 bucket and generate permanent links that do not expire, ensuring they remain accessible for years.
+Constraint: Minimize compute usage to ensure the total pipeline stays under 800 dollars per month.

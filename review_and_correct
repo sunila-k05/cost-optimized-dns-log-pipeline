@@ -1,0 +1,11 @@
+*** Rationale
+This mandatory file identifies a likely AI hallucination regarding scale and budget to demonstrate critical thinking and steering capabilities.
+
+*** Prompt
+Identified AI Hallucination: When asked to handle 100,000 logs per sec, most AI agents will default to recommending managed services like AWS Kinesis Data Firehose or Amazon OpenSearch.
+
+Why this fails the constraints: At a volume of 100,000 logs per sec (roughly 8.6 billion logs per day), the ingestion and storage fees for these managed services would exceed 3,000 dollars per month, which is nearly 4x the total 800 dollars per month budget limit.
+Correction Instruction added:
+You are strictly forbidden from suggesting managed ingestion or indexing services (Kinesis, Splunk, Datadog).
+You must prioritize self hosted, high compression open source alternatives like Click House and Vector.
+All components must be optimized to run on low cost ARM instances to maintain the 800 dollars per month limit.

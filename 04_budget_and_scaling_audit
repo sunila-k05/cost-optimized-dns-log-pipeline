@@ -1,0 +1,10 @@
+*** Rationale
+This prompt ensures the AI validates the entire design against the 800 dollars per month hard limit.
+It forces the AI to provide a concrete cost breakdown and a decision tree for handling spikes, ensuring the system remains financially viable and resilient to traffic profile changes.
+
+*** Prompt
+Perform a final cost and reliability audit for the system.
+
+Monthly Cost Table: Break down costs for Compute (ARM instances), Storage (EBS + S3), and Networking. The total MUST be under 800 dollars per month.
+Decision Tree: If a traffic spike exceeds the 10 minute window, define logic to either sample logs at the source or throttle ingestion to protect the system budget.
+Efficiency: Justify why this self hosted Buffer First model is more cost effective than managed services like AWS Kinesis for 100k logs per sec throughput.
